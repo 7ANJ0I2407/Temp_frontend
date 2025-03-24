@@ -3,6 +3,7 @@ import { IoIosStar, IoIosStarHalf, IoIosStarOutline } from "react-icons/io";
 import { commonClassNameOfInput } from "../../components/common/Design";
 import { AiOutlinePlus } from "react-icons/ai";
 import { useState } from "react";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 export const ProductsDetailsPage = () => {
   const [activeTab, setActiveTab] = useState("description");
@@ -10,16 +11,65 @@ export const ProductsDetailsPage = () => {
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
+
+  const images = [
+    "https://bidout-wp.b-cdn.net/wp-content/uploads/2022/10/Image-14.jpg",
+    "https://bidout-wp.b-cdn.net/wp-content/uploads/2022/10/Image-13.jpg",
+    "https://bidout-wp.b-cdn.net/wp-content/uploads/2022/10/Image-12.jpg",
+  ];
+
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const handlePrevImage = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1));
+  };
+
+  const handleNextImage = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
+  };
+
+
   return (
     <>
       <section className="pt-24 px-8">
         <Container>
           <div className="flex justify-between gap-8">
-            <div className="w-1/2">
-              <div className="h-[70vh]">
-                <img src="https://bidout-wp.b-cdn.net/wp-content/uploads/2022/10/Image-14.jpg" alt="" className="w-full h-full object-cover rounded-xl" />
+          <div className="w-1/2">
+              <div className="relative h-[70vh] group">
+                {/* Main Image */}
+                <img src={images[currentImageIndex]} alt="" className="w-full h-full object-cover rounded-xl" />
+                
+                {/* Arrows (visible on hover) */}
+                <button 
+                  className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-gray-900 bg-opacity-50 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition"
+                  onClick={handlePrevImage}
+                >
+                  <FaArrowLeft size={20} />
+                </button>
+                <button 
+                  className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-gray-900 bg-opacity-50 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition"
+                  onClick={handleNextImage}
+                >
+                  <FaArrowRight size={20} />
+                </button>
+              </div>
+
+              {/* Thumbnail Images */}
+              <div className="flex gap-2 mt-2 justify-center">
+                {images.map((image, index) => (
+                  <img
+                    key={index}
+                    src={image}
+                    alt=""
+                    className={`w-[10vw] h-[15vh] object-cover rounded-md cursor-pointer border-2 ${
+                      index === currentImageIndex ? "border-green-500" : "border-transparent"
+                    }`}
+                    onClick={() => setCurrentImageIndex(index)}
+                  />
+                ))}
               </div>
             </div>
+
             <div className="w-1/2">
               <Title level={2} className="capitalize">
                 Couple Wedding Ring
@@ -44,10 +94,6 @@ export const ProductsDetailsPage = () => {
               <Caption>Time left:</Caption>
               <br />
               <div className="flex gap-8 text-center">
-                <div className="p-5 px-10 shadow-s1">
-                  <Title level={4}>149</Title>
-                  <Caption>Days</Caption>
-                </div>
                 <div className="p-5 px-10 shadow-s1">
                   <Title level={4}>12</Title>
                   <Caption>Hours</Caption>
@@ -122,52 +168,72 @@ export const ProductsDetailsPage = () => {
                   <br />
                   <Title level={4}>Product Overview</Title>
                   <div className="flex justify-between gap-5">
-                    <div className="mt-4 capitalize w-1/2">
-                      <div className="flex justify-between border-b py-3">
-                        <Title>category</Title>
-                        <Caption>Category</Caption>
-                      </div>
-                      <div className="flex justify-between border-b py-3">
-                        <Title>height</Title>
-                        <Caption> 200 (cm)</Caption>
-                      </div>
-                      <div className="flex justify-between border-b py-3">
-                        <Title>length</Title>
-                        <Caption> 300 (cm)</Caption>
-                      </div>
-                      <div className="flex justify-between border-b py-3">
-                        <Title>width</Title>
-                        <Caption> 400 (cm)</Caption>
-                      </div>
-                      <div className="flex justify-between border-b py-3">
-                        <Title>weigth</Title>
-                        <Caption> 50 (kg)</Caption>
-                      </div>
-                      <div className="flex justify-between py-3 border-b">
-                        <Title>medium used</Title>
-                        <Caption> Gold </Caption>
-                      </div>
-                      <div className="flex justify-between py-3 border-b">
-                        <Title>Price</Title>
-                        <Caption> $50000 </Caption>
-                      </div>
-                      <div className="flex justify-between py-3 border-b">
-                        <Title>Sold out</Title>
-                        Yes
-                      </div>
-                      <div className="flex justify-between py-3 border-b">
-                        <Title>verify</Title>
-                        No
-                      </div>
-                      <div className="flex justify-between py-3 border-b">
-                        <Title>Create At</Title>
-                        <Caption>December 31, 2024 12:00 am</Caption>
-                      </div>
-                      <div className="flex justify-between py-3">
-                        <Title>Update At</Title>
-                        <Caption>December 31, 2024 12:00 am</Caption>
-                      </div>
-                    </div>
+                  <div className="mt-4 capitalize w-1/2">
+                  <div className="flex justify-between border-b py-3">
+                    <Title>Make</Title>
+                    <Caption>BMW</Caption>
+                  </div>
+                  <div className="flex justify-between border-b py-3">
+                    <Title>Model</Title>
+                    <Caption>X5</Caption>
+                  </div>
+                  <div className="flex justify-between border-b py-3">
+                    <Title>Year</Title>
+                    <Caption>2022</Caption>
+                  </div>
+                  <div className="flex justify-between border-b py-3">
+                    <Title>Mileage</Title>
+                    <Caption>15,000 km</Caption>
+                  </div>
+                  <div className="flex justify-between border-b py-3">
+                    <Title>Fuel Type</Title>
+                    <Caption>Diesel</Caption>
+                  </div>
+                  <div className="flex justify-between border-b py-3">
+                    <Title>Transmission</Title>
+                    <Caption>Automatic</Caption>
+                  </div>
+                  <div className="flex justify-between border-b py-3">
+                    <Title>Engine</Title>
+                    <Caption>3.0L Turbo</Caption>
+                  </div>
+                  <div className="flex justify-between border-b py-3">
+                    <Title>Body Type</Title>
+                    <Caption>SUV</Caption>
+                  </div>
+                  <div className="flex justify-between border-b py-3">
+                    <Title>Seats</Title>
+                    <Caption>5</Caption>
+                  </div>
+                  <div className="flex justify-between border-b py-3">
+                    <Title>Color</Title>
+                    <Caption>Metallic Blue</Caption>
+                  </div>
+                  <div className="flex justify-between border-b py-3">
+                    <Title>Starting Bid</Title>
+                    <Caption>$40,000</Caption>
+                  </div>
+                  <div className="flex justify-between border-b py-3">
+                    <Title>Current Highest Bid</Title>
+                    <Caption>$52,000</Caption>
+                  </div>
+                  <div className="flex justify-between border-b py-3">
+                    <Title>Bidding Ends</Title>
+                    <Caption>March 31, 2025 5:00 PM UTC</Caption>
+                  </div>
+                  <div className="flex justify-between border-b py-3">
+                    <Title>Sold</Title>
+                    <Caption>No</Caption>
+                  </div>
+                  <div className="flex justify-between border-b py-3">
+                    <Title>Verified</Title>
+                    <Caption>Yes</Caption>
+                  </div>
+                  <div className="flex justify-between py-3">
+                    <Title>Last Updated</Title>
+                    <Caption>March 20, 2025</Caption>
+                  </div>
+                </div>
                     <div className="w-1/2">
                       <div className="h-[60vh] p-2 bg-green rounded-xl">
                         <img src="https://bidout-wp.b-cdn.net/wp-content/uploads/2022/10/Image-14.jpg" alt="" className="w-full h-full object-cover rounded-xl" />
@@ -214,7 +280,7 @@ export const AuctionHistory = () => {
             <thead className="text-xs text-gray-700 uppercase bg-gray-100">
               <tr>
                 <th scope="col" className="px-6 py-5">
-                  Date
+                  Time
                 </th>
                 <th scope="col" className="px-6 py-3">
                   Bid Amount(USD)
@@ -229,7 +295,7 @@ export const AuctionHistory = () => {
             </thead>
             <tbody>
               <tr className="bg-white border-b hover:bg-gray-50">
-                <td className="px-6 py-4">December 31, 2024 12:00 am</td>
+                <td className="px-6 py-4">12:00 am</td>
                 <td className="px-6 py-4">$200</td>
                 <td className="px-6 py-4">Sunil Pokhrel</td>
                 <td className="px-6 py-4"> </td>
