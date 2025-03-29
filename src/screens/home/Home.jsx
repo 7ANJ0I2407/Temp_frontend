@@ -5,7 +5,7 @@ export const Home = () => {
   return (
     <>
       <Hero />
-      <CategorySlider />
+      {/* <CategorySlider /> */}
       <ProductList />
       <TopSeller />
       <Process />

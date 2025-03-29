@@ -109,7 +109,7 @@ function App() {
               </Layout>
             }
           />
-          <Route
+          {/* <Route
             path="/dashboard"
             element={
               <PrivateRoute>
@@ -120,7 +120,7 @@ function App() {
                 </Layout>
               </PrivateRoute>
             }
-          />
+          /> */}
           <Route
             path="/product"
             element={
